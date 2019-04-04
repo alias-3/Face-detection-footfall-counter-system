@@ -4,7 +4,7 @@ import dlib
 import os
 
 
-def face():
+def face(eid):
     
     cam = cv2.VideoCapture(0)
     detector = dlib.get_frontal_face_detector()
@@ -27,10 +27,11 @@ def face():
         connect.close()                                                             #Closing the connection
 
     #Taking input from user
-    Name = "Anurag"#    
-    Id = '23' #input("Enter Emp Id : ")
+    # Name = "Rathi"#    
+    Id = eid 
+    #input("Enter Emp Id : ")
     #Adding into database
-    insertOrUpdate(Name,Id) 
+    # insertOrUpdate(Name,Id) 
 
     sampleNum=0
 
@@ -47,10 +48,10 @@ def face():
             sampleNum+=1
             #saving the captured face in the dataset folder
             #cv2.imwrite("dataSet/E"+str(Id)+'.'+ str(sampleNum) + ".jpg", gray[y:y+h,x:x+w])
-            x=os.path.join(os.getcwd(), 'face_rec\\dataSet\\E  ') 
+            x=os.path.join(os.getcwd(), 'face_rec\\dataSet\\E') 
             cv2.imwrite(x+str(Id)+'.'+ str(sampleNum) + ".jpg", gray[d.top():d.bottom(), d.left():d.right()])
 
-            cv2.imshow('Frame',img)
+            cv2.imshow('Face Recording',img)
         #Wait for 100 miliseconds 
         if cv2.waitKey(20) & 0xFF == ord('q'):
             break

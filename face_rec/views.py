@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from . import empFace,recognition,trainer
+from . import empFace,recognition,empTrainer,empregister
+import sys
+from .footfall import footfall
 import json
+import time
 
 def index(request):
 	if request.method=="POST" and request.POST.get('face')=='face':
@@ -28,10 +31,32 @@ def index(request):
 	elif request.method=="POST" and request.POST.get('test')=='test':
 		recognition.rec()
 		return render(request,'home.html')
-	# elif request.method=="POST" and request.POST.get('test')=='test':
-	# recognition.rec()
-	# return render(request,'home.html')		
+
+	elif request.method=="POST" and request.POST.get('train')=='train':
+		empTrainer.train()
+		return render(request,'home.html')
+	elif request.method=="POST" and request.POST.get('startcount')=='startcount':
+		footfall.count()
+		return render(request,'home.html')
 	else:
 
 		return render(request,'home.html')	
-	
+
+def register_employee(request):
+	if request.method == "POST" :
+		ename = str(request.POST.get('empname'))
+		eid = (request.POST.get('empid'))
+		empregister.empregister(eid,ename)
+		time.sleep(2)
+		empFace.face(eid)
+		time.sleep(2)
+		return render(request,'success.html')
+	else:
+		return render(request,'addemployee.html')
+
+def train(request):
+	if request.method == "POST":
+		empTrainer.train()
+		return render(request,'home.html')
+	else:
+		return render(request,'train.html')

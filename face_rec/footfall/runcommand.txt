@@ -1,0 +1,1 @@
+python footfall.py --input videos/ex.mp4
