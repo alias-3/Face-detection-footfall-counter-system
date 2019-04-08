@@ -26,5 +26,3 @@ Run Django project
 Go to the root directory
 
 Run command:- python manage.py runserver
-
-Screenshots are added above in files.
